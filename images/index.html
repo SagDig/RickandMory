@@ -10,13 +10,45 @@
             margin: 0;
             padding: 0;
         }
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2vh;
+            padding: 1em;
+            width: 100vw;
+            height: auto;
+            overflow-x: hidden;
+            background-image: url(../images/rick.png);
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
     </style>
 </head>
 <body>
-    <img src="" alt="logo" width="500px" height="auto">
+    <img src="../images/logoRaM.png" alt="logo" width="500px" height="auto">
+    <div>
+        <label for="pageInput">Digite yma pagina de (1/42)</label>
+        <input type="text" id="pageInput">
+        <button onclick="fetchCharacters()">Mostra Personagens</button>
+    </div>
 
+    <div id="container"></div>
     <script>
-        
+        async function fetchCharacters(){
+            const page = document.getElementById("pageInput").value || 1;
+            const apiUrl = `https://rickandmortyapi.com/api/character/?page=${page}`
+
+            try{
+                const response = await fetch(apiUrl)
+                const data = await response.json()
+                console.log(data.results)
+            } catch (error){
+                console.error("erro ao buscar personagem - ", error)
+            }
+        }
     </script>
     
 </body>
